@@ -13,6 +13,10 @@ New-Ulid
 ## First 10 characters will always be the same
 ## (01BJGCJM0S)QB05SZK8D1PVGN9Y
 New-Ulid -Time 1497346166809
+
+## You can also request lowercase letters
+## 01bjgkxc8y007eks3b6s29kde5
+New-Ulid -Lowercase
 ```
 
 ## Testing
