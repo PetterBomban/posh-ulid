@@ -2,7 +2,7 @@ function Encode-Random
 {
     param
     (
-        $Length
+        $Length = 16
     )
 
     $String = ''

@@ -2,7 +2,7 @@ function Encode-Time
 {
     param (
         $Time,
-        $Length
+        $Length = 10
     )
 
     $String = ''
