@@ -15,8 +15,7 @@ InModuleScope Posh-Ulid {
                 $Now = Get-Now
                 $Epoch = Get-Date -Date "1/1/1970"
                 $Result = $Epoch.AddMilliseconds($Now)
-
-                $Result | Should Be $True
+                $Result | Should BeOfType [DateTime]
             }
         }
 
