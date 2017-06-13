@@ -10,11 +10,23 @@ function New-Ulid
     {
         $Time = Get-Now
     }
-    $String = ((Encode-Time -Time $Time -Length 10)) + (Encode-Random(16))
+
+    $Timestamp = Encode-Time -Time $Time
+    $Randomness = Encode-Random -Length 16
+    $String = $Timestamp + $Randomness
+
+    $Object = [PSCustomObject]@{
+        'Timestamp'  = $Timestamp
+        'Randomness' = $Randomness
+        'Ulid'       = $String
+    }
     
     if ($Lowercase)
     {
-        return $String.ToLower()
+        $Object.Timestamp = ($Object.Timestamp).ToLower()
+        $Object.Randomness = ($Object.Randomness).ToLower()
+        $Object.Ulid = ($Object.Ulid).ToLower()
     }
-    return $String
+
+    return $Object
 }

@@ -56,10 +56,10 @@ InModuleScope Posh-Ulid {
             }
 
             It 'Should NOT have two equal values' {
-                $Ulid1 = New-Ulid -Time 1497346166809
-                $Ulid2 = New-Ulid -Time 1497346166809
+                $Rnd1 = Encode-Random
+                $Rnd2 = Encode-Random
 
-                ($Ulid1 -eq $Ulid2) | Should Be $False
+                ($Rnd1 -eq $Rnd2) | Should Be $False
             }
         }
 
@@ -73,7 +73,7 @@ InModuleScope Posh-Ulid {
             }
 
             It 'Should return correct length' {
-                $Result = New-Ulid
+                $Result = (New-Ulid).Ulid
 
                 $Result.Length | Should Be 26
             }
@@ -87,17 +87,18 @@ InModuleScope Posh-Ulid {
             It 'Should give the same time component' {
                 $Time = 1497346166809
 
-                $Ulid1 = New-Ulid -Time $Time
-                $Ulid2 = New-Ulid -Time $Time
-
-                $Time1 = $Ulid1.Substring(0, 10)
-                $Time2 = $Ulid2.Substring(0, 10)
+                $Ulid1 = (New-Ulid -Time $Time).Timestamp
+                $Ulid2 = (New-Ulid -Time $Time).Timestamp
                 
-                ($Time1 -eq $Time2) | Should Be $True
+                ($Ulid1 -eq $Ulid2) | Should Be $True
             }
 
             It 'Should convert to lowercase with -Lowercase' {
-                ((New-Ulid -Lowercase) -cmatch "[A-Z]") | Should Be $False
+                $Result = New-Ulid -Lowercase
+
+                $Result.Ulid -cmatch "[A-Z]" | Should Be $False
+                $Result.Timestamp -cmatch "[A-Z]" | Should Be $False
+                $Result.Randomness -cmatch "[A-Z]" | Should Be $False
             }
         }
     }
