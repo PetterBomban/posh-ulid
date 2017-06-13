@@ -96,6 +96,8 @@ InModuleScope Posh-Ulid {
                 ($Time1 -eq $Time2) | Should Be $True
             }
 
+            It 'Should convert to lowercase with -Lowercase' {
+                ((New-Ulid -Lowercase) -cmatch "[A-Z]") | Should Be $False
             }
         }
     }
