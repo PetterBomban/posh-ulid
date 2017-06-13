@@ -94,7 +94,9 @@ InModuleScope Posh-Ulid {
                 $Time2 = $Ulid2.Substring(0, 10)
                 
                 ($Time1 -eq $Time2) | Should Be $True
-            } 
+            }
+
+            }
         }
     }
 }
