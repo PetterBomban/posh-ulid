@@ -11,5 +11,14 @@ Import-Module Posh-Ulid
 New-Ulid
 
 ## First 10 characters will always be the same
+## (01BJGCJM0S)QB05SZK8D1PVGN9Y
 New-Ulid -Time 1497346166809
 ```
+
+## Testing
+
+`cd` to the project root and `Invoke-Pester`.
+
+## License
+
+MIT License.
