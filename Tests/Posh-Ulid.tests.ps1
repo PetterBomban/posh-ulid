@@ -1,7 +1,7 @@
 $RootPath = Split-Path -Path $PSScriptRoot
 $ModulePath = Join-Path -Path $RootPath -ChildPath "Posh-Ulid.psm1"
 
-Remove-Module Posh-Ulid
+Remove-Module Posh-Ulid -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
 Import-Module $ModulePath
 
 InModuleScope Posh-Ulid {
@@ -64,7 +64,7 @@ InModuleScope Posh-Ulid {
 
         Context 'New-Ulid' {
             It 'Should NOT throw' {
-                { New-Ulid } | Should Not Throw
+                { New-Ulid -ErrorAction Stop } | Should Not Throw
             }
 
             It 'Should NOT return $Null or empty' {
@@ -98,6 +98,21 @@ InModuleScope Posh-Ulid {
                 $Result.Ulid -cmatch "[A-Z]" | Should Be $False
                 $Result.Timestamp -cmatch "[A-Z]" | Should Be $False
                 $Result.Randomness -cmatch "[A-Z]" | Should Be $False
+            }
+        }
+
+        Context 'Posh-Ulid.psm1' {
+            It 'Should import' {
+                {
+                    $RootPath = Split-Path -Path $PSScriptRoot
+                    $ModulePath = Join-Path -Path $RootPath -ChildPath "Posh-Ulid.psm1"
+                    Import-Module $ModulePath -ErrorAction Stop
+                } | Should Not Throw
+            }
+
+            It 'Should only expose certain functions' {
+                $ModuleContent = Get-Module Posh-Ulid 
+                ($ModuleContent.ExportedCommands).Count | Should Be 1
             }
         }
     }
