@@ -10,6 +10,10 @@ function New-Ulid
     {
         $Time = Get-Now
     }
+    if ($Lowercase)
+    {
+        $Encoding = $Encoding.toLower()
+    }
 
     $Timestamp = Encode-Time -Time $Time
     $Randomness = Encode-Random -Length 16
@@ -19,13 +23,6 @@ function New-Ulid
         'Timestamp'  = $Timestamp
         'Randomness' = $Randomness
         'Ulid'       = $String
-    }
-    
-    if ($Lowercase)
-    {
-        $Object.Timestamp = ($Object.Timestamp).ToLower()
-        $Object.Randomness = ($Object.Randomness).ToLower()
-        $Object.Ulid = ($Object.Ulid).ToLower()
     }
 
     return $Object
