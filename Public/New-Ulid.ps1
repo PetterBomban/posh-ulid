@@ -26,4 +26,6 @@ function New-Ulid
     }
 
     return $Object
+
+    # Comment
 }
